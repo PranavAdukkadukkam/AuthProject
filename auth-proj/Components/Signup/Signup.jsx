@@ -1,15 +1,20 @@
 import { useState } from 'react';
 import './Signup.css'
-import { Link } from 'react-router-dom';
+import { Link , useNavigate} from 'react-router-dom';
+import axios from 'axios'
+
+
 const Signup = () => {
 
-    const [userName,setUsername] = useState("")
+    const [name,setUsername] = useState("")
     const [email,setEmail] = useState("")
     const [password,setPassword] = useState("")
     const [confirm,setConfirm] = useState("")
-    const [terms,setTerms] = useState(false)
+    const [terms,setTerms] = useState(true)
     const [focus1,setFocus1] = useState(false)
     const [focus,setFocus] = useState(false)
+
+    const navigate = useNavigate()
     const reviews = [
         {
           name: "Priya Nair",
@@ -58,7 +63,20 @@ const Signup = () => {
         }
       ];
 
-      
+    
+      async function onSubmitHandler(e){
+        e.preventDefault()
+
+        const message = await axios.post('http://localhost:3000/signup',{
+            name : name,
+            email : email,
+            password : password
+        })
+
+        if (message.data.signup === true) {
+            navigate('/login')
+        }
+      }
     return (
         <div className="container">
             <div className="mainPart1">
@@ -104,11 +122,11 @@ const Signup = () => {
                         <div className="signIn">
                             Already a member?
                             <div>
-                                <Link to={'/signin'} className='signinLink'>Log in here</Link>
+                                <Link to={'/login'} className='signinLink'>Log in here</Link>
                             </div>
                         </div>
                     </div>
-                    <form onSubmit={() => {}}>
+                    <form onSubmit={onSubmitHandler}>
                     <div className="field">
                         <label>Your Full Name</label>
                         <input type="text" placeholder='You Full Name' onChange={(e) => {
@@ -150,7 +168,7 @@ const Signup = () => {
                         <span>By Signing up, you agree to our <strong>Terms of Service</strong> and <strong>Privacy Policy</strong></span>
                     </div>
                     <div className="submitButton">
-                        <button>Create Account</button>
+                        <button disabled={terms}>Create Account</button>
                     </div>
                     </form>
                 </div>
