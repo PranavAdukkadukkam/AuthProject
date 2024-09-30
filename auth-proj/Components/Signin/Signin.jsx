@@ -1,13 +1,18 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link ,useNavigate} from 'react-router-dom'
 import '../Signin/Signin.css'
 import axios from 'axios'
 const key = "token"
 
+
+
 function Signin() {
+
+  const navigate = useNavigate()
 
   const [email,setEmail] = useState("")
   const [password,setPassword] = useState("")
+  const [invalid,setInvalid] = useState(false)
 
   async function onSiginHandler(e) {
     e.preventDefault()
@@ -15,8 +20,12 @@ function Signin() {
       email : email,
       password : password
     })
-
+    
     localStorage.setItem(key,message.data.token)
+    console.log(message.data.token)
+    navigate('/about')
+    
+
   }
   return (
     <div className="signInContainer">
@@ -42,7 +51,10 @@ function Signin() {
           </div>
           <div className="field">
             <label>Your Password</label>
-            <input type="email" placeholder='Your Password' onChange={(e) => {setPassword(e.target.value)}}/>
+            <input type="password" placeholder='Your Password' onChange={(e) => {setPassword(e.target.value)}}/>
+          </div>
+          <div>
+            {invalid ? <p>Invalid email or password</p> : null}
           </div>
           <div className="field-check">
             <div>

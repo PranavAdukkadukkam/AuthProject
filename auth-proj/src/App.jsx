@@ -3,7 +3,7 @@ import Signup from '../Components/Signup/Signup'
 import Signin from '../Components/Signin/Signin'
 import './App.css'
 import {Router,Routes,Route , Link} from 'react-router-dom'
-import About from '../Components/About/About'
+import AboutAuth from '../Components/About/AboutAuth'
 
 const Home = () => {
   return (
@@ -15,6 +15,7 @@ const Home = () => {
 }
 function App() {
 
+
   return (
     <div>
 
@@ -22,10 +23,9 @@ function App() {
           <Route path='/' element={<Home/>}/>
           <Route path='/signup' element={<Signup/>}/>
           <Route path='/login' element={<Signin/>}/>
-          <Route path='/about' element={<About/>}/>
+          <Route path='/about' element={<AboutAuth/>} />
         </Routes>  
 
-      
     </div>
   )
 }

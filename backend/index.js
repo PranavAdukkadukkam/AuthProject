@@ -12,7 +12,7 @@ app.use(express.json())
 app.use(cors())
 
 function auth(req,res,next) {
-    const token = req.headers.authorization
+    const token = req.headers.token
 
     if (token) {
         jwt.verify(token , JWT_SECRET, (err,decoded) => {
@@ -61,6 +61,7 @@ app.post('/signin',(req,res) => {
         res.status(403).json({
             message :"Invalid Username or Password"
         })
+        console.log("Invalid")
     }
 })
 
