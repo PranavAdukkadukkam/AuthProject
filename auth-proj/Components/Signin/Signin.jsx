@@ -21,9 +21,13 @@ function Signin() {
       password : password
     })
     
+    if (message.data.token) {
     localStorage.setItem(key,message.data.token)
     console.log(message.data.token)
     navigate('/about')
+    } else {
+      setInvalid(true)
+    }
     
 
   }

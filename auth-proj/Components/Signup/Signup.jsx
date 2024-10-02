@@ -72,6 +72,7 @@ const Signup = () => {
             email : email,
             password : password
         })
+        console.log(message.data)
 
         if (message.data.signup === true) {
             navigate('/login')
